@@ -147,7 +147,7 @@ static void pidLuxFloat(pidProfile_t *pidProfile, controlRateConfig_t *controlRa
 
         if (axis == FD_YAW) {
             // YAW is always gyro-controlled (MAG correction is applied to rcCommand) 100dps to 1100dps max yaw rate
-            AngleRate = (float)((rate + 10) * rcCommand[YAW]) / 50.0f;
+            AngleRate = (float)((rate + 20) * rcCommand[YAW]) / 50.0f;
          } else {
             // calculate error and limit the angle to the max inclination
 #ifdef GPS
@@ -277,8 +277,8 @@ static void pidMultiWii(pidProfile_t *pidProfile, controlRateConfig_t *controlRa
             PTermGYRO = rcCommand[axis];
 
             errorGyroI[axis] = constrain(errorGyroI[axis] + error, -16000, +16000); // WindUp
-            if ((ABS(gyroADC[axis]) > (640 * 4)) || (axis == FD_YAW && ABS(rcCommand[axis]) > 100))
-                errorGyroI[axis] = 0;
+ //           if ((ABS(gyroData[axis]) > (640 * 4)) || (axis == FD_YAW && ABS(rcCommand[axis]) > 100))
+ //               errorGyroI[axis] = 0;
 
             ITermGYRO = (errorGyroI[axis] / 125 * pidProfile->I8[axis]) / 64;
         }
@@ -423,7 +423,7 @@ static void pidMultiWii23(pidProfile_t *pidProfile, controlRateConfig_t *control
 #endif
     errorGyroI[FD_YAW]  += (int32_t)error * pidProfile->I8[FD_YAW];
     errorGyroI[FD_YAW]  = constrain(errorGyroI[FD_YAW], 2 - ((int32_t)1 << 28), -2 + ((int32_t)1 << 28));
-    if (ABS(rc) > 50) errorGyroI[FD_YAW] = 0;
+//    if (ABS(rc) > 50) errorGyroI[FD_YAW] = 0;
 
     PTerm = (int32_t)error * pidProfile->P8[FD_YAW] >> 6; // TODO: Bitwise shift on a signed integer is not recommended
 
@@ -544,7 +544,7 @@ static void pidMultiWiiHybrid(pidProfile_t *pidProfile, controlRateConfig_t *con
 #endif
     errorGyroI[FD_YAW]  += (int32_t)error * pidProfile->I8[FD_YAW];
     errorGyroI[FD_YAW]  = constrain(errorGyroI[FD_YAW], 2 - ((int32_t)1 << 28), -2 + ((int32_t)1 << 28));
-    if (ABS(rc) > 50) errorGyroI[FD_YAW] = 0;
+//    if (ABS(rc) > 50) errorGyroI[FD_YAW] = 0;
 
     PTerm = (int32_t)error * pidProfile->P8[FD_YAW] >> 6;
 
@@ -659,22 +659,22 @@ rollAndPitchTrims_t *angleTrim, rxConfig_t *rxConfig)
         PTerm = ((int32_t)pidProfile->P8[FD_YAW] * (100 - (int32_t)controlRateConfig->rates[FD_YAW] * (int32_t)ABS(rcCommand[FD_YAW]) / 500)) / 100;
         int32_t tmp = lrintf(gyroADC[FD_YAW] * 0.25f);
         PTerm = rcCommand[FD_YAW] - tmp * PTerm / 80;
-        if ((ABS(tmp) > 640) || (ABS(rcCommand[FD_YAW]) > 100)) {
-            errorGyroI[FD_YAW] = 0;
-        } else {
+//        if ((ABS(tmp) > 640) || (ABS(rcCommand[FD_YAW]) > 100)) {
+//            errorGyroI[FD_YAW] = 0;
+//        } else {
             error = ((int32_t)rcCommand[FD_YAW] * 80 / (int32_t)pidProfile->P8[FD_YAW]) - tmp;
             errorGyroI[FD_YAW] = constrain(errorGyroI[FD_YAW] + (int32_t)(error * Mwii3msTimescale), -16000, +16000); // WindUp
             ITerm = (errorGyroI[FD_YAW] / 125 * pidProfile->I8[FD_YAW]) >> 6;
-        }
+//        }
     } else {
         int32_t tmp = ((int32_t)rcCommand[FD_YAW] * (((int32_t)controlRateConfig->rates[FD_YAW] << 1) + 40)) >> 5;
         error = tmp - lrintf(gyroADC[FD_YAW] * 0.25f);                       // Less Gyrojitter works actually better
 
-        if (ABS(tmp) > 50) {
-            errorGyroI[FD_YAW] = 0;
-        } else {
+//        if (ABS(tmp) > 50) {
+//            errorGyroI[FD_YAW] = 0;
+//        } else {
             errorGyroI[FD_YAW] = constrain(errorGyroI[FD_YAW] + (int32_t)(error * (float)pidProfile->I8[FD_YAW] * Mwii3msTimescale), -268435454, +268435454);
-        }
+//        }
 
         ITerm = constrain(errorGyroI[FD_YAW] >> 13, -GYRO_I_MAX, +GYRO_I_MAX);
         PTerm = ((int32_t)error * (int32_t)pidProfile->P8[FD_YAW]) >> 6;
@@ -742,7 +742,7 @@ static void pidRewrite(pidProfile_t *pidProfile, controlRateConfig_t *controlRat
 
         // -----Get the desired angle rate depending on flight mode
         if (axis == FD_YAW) { // YAW is always gyro-controlled (MAG correction is applied to rcCommand)
-            AngleRateTmp = (((int32_t)(rate + 27) * rcCommand[YAW]) >> 5);
+            AngleRateTmp = (((int32_t)(rate + 27) * rcCommand[YAW]) >> 4);
         } else {
             // calculate error and limit the angle to max configured inclination
 #ifdef GPS
