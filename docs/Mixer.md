@@ -97,37 +97,40 @@ Note: the `mmix` command may show a motor mix that is not active, custom motor m
 
 Custom servo mixing rules can be applied to each servo.  Rules are applied in the order they are defined.
 
-| id | Servo slot |
-| 0  | GIMBAL PITCH |
-| 1  | GIMBAL ROLL |
-| 2  | FLAPS |
-| 3  | FLAPPERON 1 (LEFT) / SINGLECOPTER_1 |
+| id | Servo slot                                                             |
+| -- | ---------------------------------------------------------------------- |
+| 0  | GIMBAL PITCH                                                           |
+| 1  | GIMBAL ROLL                                                            |
+| 2  | FLAPS                                                                  |
+| 3  | FLAPPERON 1 (LEFT) / SINGLECOPTER_1                                    |
 | 4  | FLAPPERON 2 (RIGHT) / BICOPTER_LEFT / DUALCOPTER_LEFT / SINGLECOPTER_2 |
-| 5  | RUDDER / BICOPTER_RIGHT / DUALCOPTER_RIGHT / SINGLECOPTER_3 |
-| 6  | ELEVATOR / SINGLECOPTER_4 | 
-| 7  | THROTTLE (Based ONLY on the first motor output) | 
+| 5  | RUDDER / BICOPTER_RIGHT / DUALCOPTER_RIGHT / SINGLECOPTER_3            |
+| 6  | ELEVATOR / SINGLECOPTER_4                                              | 
+| 7  | THROTTLE (Based ONLY on the first motor output)                        | 
 
 
-| id | Input sources |
-| -- | ------------- |
-| 0  | Stabilised ROLL |
-| 1  | Stabilised PITCH |
-| 2  | Stabilised YAW |
+| id | Input sources       |
+| -- | ------------------- |
+| 0  | Stabilised ROLL     |
+| 1  | Stabilised PITCH    |
+| 2  | Stabilised YAW      |
 | 3  | Stabilised THROTTLE |
-| 4  | RC ROLL |
-| 5  | RC ITCH |
-| 6  | RC YAW |
-| 7  | RC THROTTLE |
-| 8  | RC AUX 1 |
-| 9  | RC AUX 2 |
-| 10 | RC AUX 3 |
-| 11 | RC AUX 4 |
-| 12 | GIMBAL PITCH |
-| 13 | GIMBAL ROLL |
+| 4  | RC ROLL             |
+| 5  | RC ITCH             |
+| 6  | RC YAW              |
+| 7  | RC THROTTLE         |
+| 8  | RC AUX 1            |
+| 9  | RC AUX 2            |
+| 10 | RC AUX 3            |
+| 11 | RC AUX 4            |
+| 12 | GIMBAL PITCH        |
+| 13 | GIMBAL ROLL         |
 
-Note: the `smix` command may show a servo mix that is not active, custom servo mixes are only active for models that use custom mixers. 
+Note: the `smix` command may show a servo mix that is not active, custom servo
+mixes are only active for models that use custom mixers. 
 
 ### Example 1: A KK2.0 wired motor setup 
+
 Here's an example of a X configuration quad, but the motors are still wired using the KK board motor numbering scheme. 
 
 ```
@@ -191,5 +194,21 @@ e.g. when using the TRI mixer to reverse the tail servo on a tricopter use this:
 
 `smix reverse 5 2 r`
 
-i.e. when mixing rudder servo slot (`5`) using Stabilised YAW input source (`2`) reverse the direction (`r`)
+i.e. when mixing rudder servo slot (`5`) using Stabilised YAW input source
+(`2`) reverse the direction (`r`)
+
+## Servo Command
+
+Configure servos with the servo command
+
+| Servo table parameter | Definition | 
+| ------------- | ---------- |
+| n	        | Servo ordering number |
+| MIN	        | minimum servo value |
+| MAX	        | maximum servo value |
+| MIDDLE        | middle servo value |
+| ANGLE_AT_MIN  | unknown |
+| ANGLE_AT_MAX  | unknown |
+| RATE	        | servo rate |
+| FORWARD       | set to -1 to reverse servo sense |
   
