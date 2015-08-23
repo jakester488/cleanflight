@@ -126,6 +126,10 @@ Custom servo mixing rules can be applied to each servo.  Rules are applied in th
 | 12 | GIMBAL PITCH        |
 | 13 | GIMBAL ROLL         |
 
+| Mixing table parameter | Definition |
+| ---------------------- | ---------- |
+| n        | Motor ordering number |
+
 | id | Servo slot                                                             |
 | 0  | GIMBAL PITCH                                                           |
 
