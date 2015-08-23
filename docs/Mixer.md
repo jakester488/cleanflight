@@ -1,15 +1,22 @@
 # Mixer
 
-Cleanflight supports a number of mixing configurations as well as custom mixing.  Mixer configurations determine how the servos and motors work together to control the aircraft.
+Cleanflight supports a number of mixing configurations as well as custom
+mixing.  Mixer configurations determine how the servos and motors work together
+to control the aircraft.
 
 ## Configuration
 
-To use a built-in mixing configuration, you can use the Chrome configuration GUI.  It includes images of the various mixer types to assist in making the proper connections.  See the Configuration section of the documentation for more information on the GUI.
+To use a built-in mixing configuration, you can use the Chrome configuration
+GUI.  It includes images of the various mixer types to assist in making the
+proper connections.  See the Configuration section of the documentation for
+more information on the GUI.
 
 You can also use the Command Line Interface (CLI) to set the mixer type:
 
 1. Use `mixer list` to see a list of supported mixes
+
 2. Select a mixer.  For example, to select TRI, use `mixer TRI`
+
 3. You must use `save` to preserve your changes
 
 ## Supported Mixer Types
@@ -45,35 +52,57 @@ You can also use the Command Line Interface (CLI) to set the mixer type:
 
 ## Servo filtering
 
-A low-pass filter can be enabled for the servos.  It may be useful for avoiding structural modes in the airframe, for example.  
+A low-pass filter can be enabled for the servos.  It may be useful for avoiding
+structural modes in the airframe, for example.  
 
 ### Configuration 
 
 Currently it can only be configured via the CLI:
 
-1. Use `set servo_lowpass_freq = nnn` to select the cutoff frequency.  Valid values range from 10 to 400.  This is a fraction of the loop frequency in 1/1000ths. For example, `40` means `0.040`.
+1. Use `set servo_lowpass_freq = nnn` to select the cutoff frequency.  Valid
+values range from 10 to 400.  This is a fraction of the loop frequency in
+1/1000ths. For example, `40` means `0.040`.
+
 2. Use `set servo_lowpass_enable = 1` to enable filtering.
 
 The cutoff frequency can be determined by the following formula:
+
 `Frequency = 1000 * servo_lowpass_freq / looptime`
 
-For example, if `servo_lowpass_freq` is set to 40, and looptime is set to the default of 3500 us, the cutoff frequency will be 11.43 Hz.
+For example, if `servo_lowpass_freq` is set to 40, and looptime is set to the
+default of 3500 us, the cutoff frequency will be 11.43 Hz.
 
 ### Tuning
 
 One method for tuning the filter cutoff is as follows:
 
-1. Ensure your vehicle can move at least somewhat freely in the troublesome axis.  For example, if you are having yaw oscillations on a tricopter, ensure that the copter is supported in a way that allows it to rotate left and right to at least some degree.  Suspension near the CG is ideal.  Alternatively, you can just fly the vehicle and trigger the problematic condition you are trying to eliminate, although tuning will be more tedious.
+1. Ensure your vehicle can move at least somewhat freely in the troublesome
+axis.  For example, if you are having yaw oscillations on a tricopter, ensure
+that the copter is supported in a way that allows it to rotate left and right
+to at least some degree.  Suspension near the CG is ideal.  Alternatively, you
+can just fly the vehicle and trigger the problematic condition you are trying
+to eliminate, although tuning will be more tedious.
 
-2. Tap the vehicle at its end in the axis under evaluation.  Directly commanding the servo in question to move may also be used.  In the tricopter example, tap the end of the tail boom from the side, or command a yaw using your transmitter.
+2. Tap the vehicle at its end in the axis under evaluation.  Directly
+commanding the servo in question to move may also be used.  In the tricopter
+example, tap the end of the tail boom from the side, or command a yaw using
+your transmitter.
 
-3. If your vehicle oscillates for several seconds or even continues oscillating indefinitely, then the filter cutoff frequency should be reduced. Reduce the value of `servo_lowpass_freq` by half its current value and repeat the previous step.
+3. If your vehicle oscillates for several seconds or even continues oscillating
+indefinitely, then the filter cutoff frequency should be reduced. Reduce the
+value of `servo_lowpass_freq` by half its current value and repeat the previous
+step.
 
-4. If the oscillations are dampened within roughly a second or are no longer present, then you are done.  Be sure to run `save`.
+4. If the oscillations are dampened within roughly a second or are no longer
+present, then you are done.  Be sure to run `save`.
 
 ## Custom Motor Mixing 
 
-Custom motor mixing allows for completely customized motor configurations. Each motor must be defined with a custom mixing table for that motor. The mix must reflect how close each motor is with reference to the CG (Center of Gravity) of the flight controller. A motor closer to the CG of the flight controller will need to travel less distance than a motor further away.  
+Custom motor mixing allows for completely customized motor configurations. Each
+motor must be defined with a custom mixing table for that motor. The mix must
+reflect how close each motor is with reference to the CG (Center of Gravity) of
+the flight controller. A motor closer to the CG of the flight controller will
+need to travel less distance than a motor further away.  
 
 Steps to configure custom mixer in the CLI:
 
@@ -95,9 +124,19 @@ Note: the `mmix` command may show a motor mix that is not active, custom motor m
 
 ## Custom Servo Mixing
 
+The servo statement has the following syntax: 
+
+`smix <rule> <servo> <source> <rate> <speed> <min> <max> <box>` 
+`smix reset`
+`smix load <mixer>`
+`smix reverse <servo> <source> r|n`
+        "\tload <mixer>\r\n"
+        "\treverse <servo> <source> r|n", cliServoMix),
+
+
 Custom servo mixing rules can be applied to each servo.  Rules are applied in the order they are defined.
 
-| Parameter ID | Servo Slot |
+| Rule ID | Servo Slot |
 | ----- | ---------- |
 | 0  | GIMBAL PITCH                                                           |
 | 1  | GIMBAL ROLL                                                            |
@@ -108,7 +147,7 @@ Custom servo mixing rules can be applied to each servo.  Rules are applied in th
 | 6  | ELEVATOR / SINGLECOPTER_4                                              |
 | 7  | THROTTLE (Based ONLY on the first motor output)                        |
 
-| Parameter ID | Input sources |
+| Source ID | Input sources |
 | --- | ------------------- |
 | 0  | Stabilised ROLL     |
 | 1  | Stabilised PITCH    |
@@ -130,7 +169,8 @@ mixes are only active for models that use custom mixers.
 
 ### Example 1: A KK2.0 wired motor setup 
 
-Here's an example of a X configuration quad, but the motors are still wired using the KK board motor numbering scheme. 
+Here's an example of a X configuration quad, but the motors are still wired
+using the KK board motor numbering scheme. 
 
 ```
 KK2.0 Motor Layout
