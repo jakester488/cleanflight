@@ -97,9 +97,8 @@ Note: the `mmix` command may show a motor mix that is not active, custom motor m
 
 Custom servo mixing rules can be applied to each servo.  Rules are applied in the order they are defined.
 
-
-| Mixing table parameter | Servo Slot |
-| ---------------------- | ---------- |
+| Parameter ID | Servo Slot |
+| ----- | ---------- |
 | 0  | GIMBAL PITCH                                                           |
 | 1  | GIMBAL ROLL                                                            |
 | 2  | FLAPS                                                                  |
@@ -109,7 +108,7 @@ Custom servo mixing rules can be applied to each servo.  Rules are applied in th
 | 6  | ELEVATOR / SINGLECOPTER_4                                              |
 | 7  | THROTTLE (Based ONLY on the first motor output)                        |
 
-| ID | Input sources       |
+| Parameter ID | Input sources       |
 | -- | ------------------- |
 | 0  | Stabilised ROLL     |
 | 1  | Stabilised PITCH    |
