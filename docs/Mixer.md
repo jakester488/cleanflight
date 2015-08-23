@@ -83,13 +83,13 @@ Steps to configure custom mixer in the CLI:
 
 The mmix statement has the following syntax: `mmix n THROTTLE ROLL PITCH YAW` 
 
-| Mixing table parameter | Definition | 
+| Mixing table parameter | Definition |
 | ---------------------- | ---------- |
-| n	| Motor ordering number |
-| THROTTLE	| All motors that are used in this configuration are set to 1.0. Unused set to 0.0. |
-| ROLL	| Indicates how much roll authority this motor imparts to the roll of the flight controller. Accepts values nominally from 1.0 to -1.0. |
-| PITCH	| Indicates the pitch authority this motor has over the flight controller. Also accepts values nominally from 1.0 to -1.0. |
-| YAW	| Indicates the direction of the motor rotation in relationship with the flight controller. 1.0 = CCW -1.0 = CW. |
+| n        | Motor ordering number |
+| THROTTLE        | All motors that are used in this configuration are set to 1.0. Unused set to 0.0. |
+| ROLL        | Indicates how much roll authority this motor imparts to the roll of the flight controller. Accepts values nominally from 1.0 to -1.0. |
+| PITCH        | Indicates the pitch authority this motor has over the flight controller. Also accepts values nominally from 1.0 to -1.0. |
+| YAW        | Indicates the direction of the motor rotation in relationship with the flight controller. 1.0 = CCW -1.0 = CW. |
 
 Note: the `mmix` command may show a motor mix that is not active, custom motor mixes are only active for models that use custom mixers. 
 
@@ -105,9 +105,8 @@ Custom servo mixing rules can be applied to each servo.  Rules are applied in th
 | 3  | FLAPPERON 1 (LEFT) / SINGLECOPTER_1                                    |
 | 4  | FLAPPERON 2 (RIGHT) / BICOPTER_LEFT / DUALCOPTER_LEFT / SINGLECOPTER_2 |
 | 5  | RUDDER / BICOPTER_RIGHT / DUALCOPTER_RIGHT / SINGLECOPTER_3            |
-| 6  | ELEVATOR / SINGLECOPTER_4                                              | 
-| 7  | THROTTLE (Based ONLY on the first motor output)                        | 
-
+| 6  | ELEVATOR / SINGLECOPTER_4                                              |
+| 7  | THROTTLE (Based ONLY on the first motor output)                        |
 
 | id | Input sources       |
 | -- | ------------------- |
@@ -185,7 +184,6 @@ smix reset
 smix 0 6 3 100 0 0 100 0
 ```
 
-
 ## Servo Reversing
 
 Servos are reversed using the `smix reverse` command.
@@ -201,14 +199,15 @@ i.e. when mixing rudder servo slot (`5`) using Stabilised YAW input source
 
 Configure servos with the servo command
 
+The servo statement has the following syntax: `servo n MIN MAX MIDDLE ANGLE_AT_MIN ANGLE_AT_MAX RATE FORWARD` 
+
 | Servo table parameter | Definition | 
 | ------------- | ---------- |
-| n	        | Servo ordering number |
-| MIN	        | minimum servo value |
-| MAX	        | maximum servo value |
+| n             | Servo ordering number |
+| MIN           | minimum servo value |
+| MAX           | maximum servo value |
 | MIDDLE        | middle servo value |
-| ANGLE_AT_MIN  | unknown |
-| ANGLE_AT_MAX  | unknown |
-| RATE	        | servo rate |
-| FORWARD       | set to -1 to reverse servo sense |
-  
+| ANGLE_AT_MIN  | unknown? |
+| ANGLE_AT_MAX  | unknown? |
+| RATE          | servo rate |
+| FORWARD       | set to -1 to reverse servo |
