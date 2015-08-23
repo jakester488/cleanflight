@@ -108,8 +108,8 @@ Custom servo mixing rules can be applied to each servo.  Rules are applied in th
 | 6  | ELEVATOR / SINGLECOPTER_4                                              |
 | 7  | THROTTLE (Based ONLY on the first motor output)                        |
 
-| Parameter ID | Input sources       |
-| -- | ------------------- |
+| Parameter ID | Input sources |
+| --- | ------------------- |
 | 0  | Stabilised ROLL     |
 | 1  | Stabilised PITCH    |
 | 2  | Stabilised YAW      |
