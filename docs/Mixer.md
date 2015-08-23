@@ -124,14 +124,15 @@ Note: the `mmix` command may show a motor mix that is not active, custom motor m
 
 ## Custom Servo Mixing
 
-The servo statement has the following syntax: 
+The servo statement has the following syntax variations: 
 
 `smix <rule> <servo> <source> <rate> <speed> <min> <max> <box>` 
+
 `smix reset`
+
 `smix load <mixer>`
+
 `smix reverse <servo> <source> r|n`
-        "\tload <mixer>\r\n"
-        "\treverse <servo> <source> r|n", cliServoMix),
 
 
 Custom servo mixing rules can be applied to each servo.  Rules are applied in the order they are defined.
