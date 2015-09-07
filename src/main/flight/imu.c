@@ -300,9 +300,9 @@ static void imuCalculateEstimatedAttitude(void)
 void imuUpdate(rollAndPitchTrims_t *accelerometerTrims)
 {
     gyroUpdate();
-    gyroData[FD_ROLL] = gyroADC[FD_ROLL];
-    gyroData[FD_PITCH] = gyroADC[FD_PITCH];
-    gyroData[FD_YAW] = gyroADC[FD_YAW];
+    // gyroData[FD_ROLL] = gyroADC[FD_ROLL];
+    // gyroData[FD_PITCH] = gyroADC[FD_PITCH];
+    // gyroData[FD_YAW] = gyroADC[FD_YAW];
 
     if (sensors(SENSOR_ACC)) {
         updateAccelerationReadings(accelerometerTrims); // TODO rename to accelerometerUpdate and rename many other 'Acceleration' references to be 'Accelerometer'
